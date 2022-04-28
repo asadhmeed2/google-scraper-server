@@ -35,6 +35,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 exports.__esModule = true;
 var puppeteer = require("puppeteer");
 var randomeIntFromInterval = function (min, max) {
@@ -56,11 +65,11 @@ var sleep_for = function (page, min, max) { return __awaiter(void 0, void 0, voi
     });
 }); };
 var main_actual = function (text) { return __awaiter(void 0, void 0, void 0, function () {
-    var browser, page, URL_1, input, _a;
+    var browser, page, URL_1, input, firstSearchResult, secondSearchResult, titles, _a;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _b.trys.push([0, 11, , 12]);
+                _b.trys.push([0, 15, , 16]);
                 return [4 /*yield*/, puppeteer.launch({ headless: false })];
             case 1:
                 browser = _b.sent();
@@ -69,7 +78,7 @@ var main_actual = function (text) { return __awaiter(void 0, void 0, void 0, fun
                 page = _b.sent();
                 URL_1 = "https://google.com/";
                 return [4 /*yield*/, page.setViewport({
-                        width: 1280,
+                        width: 1450,
                         height: 800,
                         deviceScaleFactor: 1
                     })];
@@ -84,7 +93,7 @@ var main_actual = function (text) { return __awaiter(void 0, void 0, void 0, fun
                 return [4 /*yield*/, page.$("body > div.L3eUgb > div.o3j99.ikrT4e.om7nvf > form > div:nth-child(1) > div.A8SBwf > div.RNNXgb > div > div.a4bIc > input")];
             case 6:
                 input = _b.sent();
-                if (!input) return [3 /*break*/, 10];
+                if (!input) return [3 /*break*/, 14];
                 return [4 /*yield*/, input.focus()];
             case 7:
                 _b.sent();
@@ -94,12 +103,26 @@ var main_actual = function (text) { return __awaiter(void 0, void 0, void 0, fun
                 return [4 /*yield*/, page.keyboard.press('Enter')];
             case 9:
                 _b.sent();
-                _b.label = 10;
-            case 10: return [3 /*break*/, 12];
+                return [4 /*yield*/, page.waitForNavigation()];
+            case 10:
+                _b.sent();
+                return [4 /*yield*/, page.$x('//div[@class="g"]')];
             case 11:
+                firstSearchResult = _b.sent();
+                return [4 /*yield*/, page.$x('//div[@class="g tF2Cxc"]')];
+            case 12:
+                secondSearchResult = _b.sent();
+                firstSearchResult = __spreadArray([], secondSearchResult, true);
+                return [4 /*yield*/, page.$$('#rso > div > div > div > div > a > h3 > span')];
+            case 13:
+                titles = _b.sent();
+                console.log(titles.length);
+                _b.label = 14;
+            case 14: return [3 /*break*/, 16];
+            case 15:
                 _a = _b.sent();
-                return [3 /*break*/, 12];
-            case 12: return [2 /*return*/];
+                return [3 /*break*/, 16];
+            case 16: return [2 /*return*/];
         }
     });
 }); };
